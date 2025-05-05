@@ -1,0 +1,57 @@
+#include <stdio.h>
+
+int indexOf(char text[], char word[]) {
+    int index = 0;
+    int textLength = 0;
+    int wordLength = 0;
+    
+    // Вычисляем длину текста
+    while (text[textLength] != '\0') {
+        textLength++;
+    }
+    
+    // Вычисляем длину слова
+    while (word[wordLength] != '\0') {
+        wordLength++;
+    }
+    
+    // Если слово пустое или длиннее текста, возвращаем -1
+    if (wordLength == 0 || wordLength > textLength) {
+        return -1;
+    }
+    
+    // Основной цикл поиска
+    for (int i = 0; i <= textLength - wordLength; i++) {
+        int j;
+        
+        // Проверяем совпадение символов
+        for (j = 0; j < wordLength; j++) {
+            if (text[i + j] != word[j]) {
+                break;
+            }
+        }
+        
+        // Если все символы совпали, возвращаем индекс
+        if (j == wordLength) {
+            return i;
+        }
+    }
+    
+    // Если слово не найдено, возвращаем -1
+    return -1;
+}
+
+int main() {
+    char sentence[] = "The quick brown fox jumps over the lazy cat";
+    char word[] = "cat";
+    
+    int position = indexOf(sentence, word);
+    
+    if (position != -1) {
+        printf("The word \"%s\" was found at position %d.\n", word, position);
+    } else {
+        printf("The word \"%s\" was not found in the sentence.\n", word);
+    }
+    
+    return 0;
+}
